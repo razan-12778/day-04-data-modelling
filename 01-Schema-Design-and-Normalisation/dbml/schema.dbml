@@ -1,0 +1,43 @@
+Table customers {
+  customer_id varchar(50) [pk]
+  customer_unique_id varchar(50)
+  customer_name varchar(100)
+  customer_zip_code integer
+  customer_segment varchar(20)
+  customer_value_segment varchar(20)
+  customer_since_date timestamp
+  customer_segment_effective_date timestamp
+}
+
+Table products {
+  product_id varchar(50) [pk]
+  product_category_name varchar(50)
+  product_name_length float
+  product_description_length float
+  product_photos_qty float
+  product_weight_g float
+  product_price_tier varchar(20)
+  product_shipping_category varchar(20)
+  product_popularity_status varchar(20)
+}
+
+Table orders {
+  order_id varchar(50) [pk]
+  customer_id varchar(50)
+  order_purchase_timestamp timestamp
+  order_approved_at timestamp
+  order_delivered_customer_date timestamp
+  order_status varchar(20)
+}
+
+Table order_items {
+  order_id varchar(50) [pk]
+  product_id varchar(50)
+  order_item_id integer [pk]
+  item_price decimal(10,2)
+  freight_value decimal(10,2)
+}
+
+Ref: customers.customer_id < orders.customer_id
+Ref: orders.order_id < order_items.order_id
+Ref: products.product_id < order_items.product_id
